@@ -1,0 +1,13 @@
+name: Trigger-release
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        default: "v0.0.1"
+jobs:
+  call-create-release:
+    uses: engineering-organization/gha-actions/.github/workflows/create-release.yml@main
+    secrets: inherit
+    with:
+      tag: ${{ github.event.inputs.tag }}
