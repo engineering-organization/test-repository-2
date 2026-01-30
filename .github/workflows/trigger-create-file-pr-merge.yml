@@ -1,0 +1,26 @@
+name: trigger-create-file-pr-and-merge
+
+on:
+  workflow_dispatch:
+    inputs:
+      filename:
+        description: "File to create"
+        required: true
+        default: "test-file.txt"
+      file_content:
+        description: "Content of the file"
+        required: true
+        default: "This file was created by org-level-automation-app."
+      base_branch:
+        description: "Target base branch"
+        required: false
+        default: "main"
+
+jobs:
+  call-reusable:
+    uses: engineering-organization/gha-actions/.github/workflows/create-file-pr-merge.yml@main
+    secrets: inherit
+    with:
+      filename: ${{ inputs.filename }}
+      file_content: ${{ inputs.file_content }}
+      base_branch: ${{ inputs.base_branch }}
